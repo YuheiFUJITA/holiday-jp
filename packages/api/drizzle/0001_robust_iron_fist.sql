@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `holiday_date_unique` ON `holiday` (`date`);

@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1730390832554,
+      "tag": "0000_lovely_dakota_north",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1730390984071,
+      "tag": "0001_robust_iron_fist",
+      "breakpoints": true
+    }
+  ]
+}

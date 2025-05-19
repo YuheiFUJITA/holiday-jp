@@ -1,0 +1,27 @@
+{
+  "name": "playground",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "pnpm run build && wrangler pages dev",
+    "postinstall": "nuxt prepare",
+    "deploy": "pnpm run build && wrangler pages deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "nuxt": "^3.13.2",
+    "vue": "latest",
+    "vue-router": "latest",
+    "vuetify": "^3.7.3",
+    "vuetify-nuxt-module": "^0.18.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241022.0",
+    "h3": "^1.13.0",
+    "nitro-cloudflare-dev": "^0.2.1",
+    "wrangler": "^3.83.0"
+  }
+}
