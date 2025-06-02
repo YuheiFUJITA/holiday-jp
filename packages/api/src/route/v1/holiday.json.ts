@@ -1,7 +1,7 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { HolidayListSchema } from "../../schema/holiday-list";
 import { Bindings } from "../../bindings";
-import { from, to } from "../../query";
+import { from, to, minify } from "../../query";
 import { getHolidays } from "../../db/client";
 import { dateToString } from "../../utils/date";
 import { drizzle } from "drizzle-orm/d1";
@@ -10,6 +10,7 @@ const QuerySchema = z
   .object({
     from,
     to,
+    minify,
   })
   .refine((data) => {
     if (data.from === undefined || data.to === undefined) {
@@ -42,14 +43,22 @@ const route = createRoute({
 const app = new OpenAPIHono<{ Bindings: Bindings }>();
 
 app.openapi(route, async (c) => {
-  const { from, to } = c.req.valid("query");
+  const { from, to, minify } = c.req.valid("query");
   const holidays = await getHolidays(drizzle(c.env.DB), from, to);
-  return c.json(
-    holidays.map((holiday) => ({
-      date: dateToString(holiday.date),
-      name: holiday.name,
-    }))
-  );
+  const data = holidays.map((holiday) => ({
+    date: dateToString(holiday.date),
+    name: holiday.name,
+  }));
+  
+  if (minify) {
+    // Return minified JSON
+    return c.json(data);
+  }
+  
+  // Return formatted JSON (default)
+  return new Response(JSON.stringify(data, null, 2), {
+    headers: { "Content-Type": "application/json" },
+  });
 });
 
 export default app;
