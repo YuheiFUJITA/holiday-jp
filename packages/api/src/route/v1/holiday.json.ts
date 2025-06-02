@@ -51,12 +51,14 @@ app.openapi(route, async (c) => {
   }));
   
   if (minify) {
-    return new Response(JSON.stringify(data), {
-      headers: { "Content-Type": "application/json" },
-    });
+    // Return minified JSON
+    return c.json(data);
   }
   
-  return c.json(data);
+  // Return formatted JSON (default)
+  return new Response(JSON.stringify(data, null, 2), {
+    headers: { "Content-Type": "application/json" },
+  });
 });
 
 export default app;
