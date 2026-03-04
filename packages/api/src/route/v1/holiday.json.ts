@@ -8,8 +8,8 @@ import { drizzle } from "drizzle-orm/d1";
 
 const QuerySchema = z
   .object({
-    from,
-    to,
+    from: from.optional(),
+    to: to.optional(),
   })
   .refine((data) => {
     if (data.from === undefined || data.to === undefined) {

@@ -7,8 +7,8 @@ import { drizzle } from "drizzle-orm/d1";
 
 const QuerySchema = z
   .object({
-    from,
-    to,
+    from: from.optional(),
+    to: to.optional(),
     "has-csv-header": hasCsvHeader,
   })
   .refine((data) => {
